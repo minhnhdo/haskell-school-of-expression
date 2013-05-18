@@ -23,10 +23,8 @@ main1  = runGraphics (
                spaceClose w
          )
 
-myPutStr         :: String -> IO ()
-myPutStr []       = return ()
-myPutStr (c : cs) = do putChar c
-                       myPutStr cs
+myPutStr  :: String -> IO ()
+myPutStr s = sequence_ (map putChar s)
 
 myGetLine :: IO String
 myGetLine  = helper ""
@@ -53,9 +51,9 @@ main2  = runGraphics (
 
 fillTri           :: Window -> Int -> Int -> Int -> IO ()
 fillTri w x y size = drawInWindow w
-                                  (withColor Blue
-                                    (polygon [(x, y), (x + size, y),
-                                              (x, y - size)]))
+                       (withColor Blue
+                         (polygon [(x, y), (x + size, y),
+                                   (x, y - size)]))
 
 minSize :: Int
 minSize  = 8

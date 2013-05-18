@@ -27,11 +27,10 @@ xWin2, yWin2 :: Int
 xWin2         = xWin `div` 2
 yWin2         = yWin `div` 2
 
-transList         :: [Vertex] -> [Point]
-transList []       = []
-transList (p : ps) = trans p : transList ps
+transList :: [Vertex] -> [Point]
+transList  = map trans
 
--- shapeToGraphics                   :: Shape -> Draw ()
+-- shapeToGraphics                   :: Shape -> Graphics
 shapeToGraphics (Rectangle s1 s2)  =
     let s12 = s1 / 2
         s22 = s2 / 2
@@ -55,14 +54,25 @@ shs :: ColoredShapes
 shs  = [(Red, sh1), (Blue, sh2), (Yellow, sh3), (Magenta, sh4), (Green, sh5)]
 
 drawShapes                :: Window -> ColoredShapes -> IO ()
-drawShapes _ []            = return ()
-drawShapes w ((c, s) : cs) = do drawInWindow w
-                                    (withColor c (shapeToGraphics s))
-                                drawShapes w cs
+drawShapes w css =
+    sequence_ (map aux css)
+    where aux (c, s) = drawInWindow w (withColor c (shapeToGraphics s))
 
 main0 :: IO ()
 main0  = runGraphics (
             do w <- openWindow "Drawing Shapes" (xWin, yWin)
                drawShapes w shs
+               spaceClose w
+         )
+
+conCircles = map circle [2.4, 2.1 .. 0.3]
+
+coloredCircles = zip [Black, Blue, Green, Cyan, Red, Magenta, Yellow, White]
+                     conCircles
+
+main1 :: IO ()
+main1  = runGraphics (
+            do w <- openWindow "Bull's Eye" (xWin, yWin)
+               drawShapes w coloredCircles
                spaceClose w
          )
