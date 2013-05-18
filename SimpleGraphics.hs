@@ -55,7 +55,7 @@ fillTri           :: Window -> Int -> Int -> Int -> IO ()
 fillTri w x y size = drawInWindow w
                                   (withColor Blue
                                     (polygon [(x, y), (x + size, y),
-                                              (x, y - size), (x, y)]))
+                                              (x, y - size)]))
 
 minSize :: Int
 minSize  = 8
@@ -90,17 +90,13 @@ fillEquiTri w x y size color rotated =
                               (fromIntegral . round $ x' + s / 2,
                                fromIntegral . round $ y' - height / 3),
                               (fromIntegral . round $ x',
-                               fromIntegral . round $ y' + height * 2 / 3),
-                              (fromIntegral . round $ x' - s / 2,
-                               fromIntegral . round $ y' - height / 3)]
+                               fromIntegral . round $ y' + height * 2 / 3)]
                         else [(fromIntegral . round $ x' - s / 2,
                                fromIntegral . round $ y' + height / 3),
                               (fromIntegral . round $ x' + s / 2,
                                fromIntegral . round $ y' + height / 3),
                               (fromIntegral . round $ x',
-                               fromIntegral . round $ y' - height * 2 / 3),
-                              (fromIntegral . round $ x' - s / 2,
-                               fromIntegral . round $ y' + height / 3)])))
+                               fromIntegral . round $ y' - height * 2 / 3)])))
 
 fillStartOfDavid                 :: Window -> Int -> Int -> Int -> Color ->
                                         IO ()
