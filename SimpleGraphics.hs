@@ -75,8 +75,8 @@ main3  = runGraphics (
                spaceClose w
          )
 
-fillEquiTri                         :: Window -> Int -> Int -> Int -> Color ->
-                                            Bool -> IO ()
+fillEquiTri                         :: Window -> Int -> Int -> Int ->
+                                            Color -> Bool -> IO ()
 fillEquiTri w x y size color rotated =
     let s = fromIntegral size
         x' = fromIntegral x
@@ -102,7 +102,8 @@ fillEquiTri w x y size color rotated =
                               (fromIntegral . round $ x' - s / 2,
                                fromIntegral . round $ y' + height / 3)])))
 
-fillStartOfDavid                 :: Window -> Int -> Int -> Int -> Color -> IO ()
+fillStartOfDavid                 :: Window -> Int -> Int -> Int -> Color ->
+                                        IO ()
 fillStartOfDavid w x y size color = do fillEquiTri w x y size color True
                                        fillEquiTri w x y size color False
 
