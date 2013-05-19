@@ -33,10 +33,9 @@ rotate r (x, y) = ((x * cos r - y * sin r), (x * sin r + y * cos r))
 
 regularPolygon    :: Int -> Side -> Shape
 regularPolygon n s =
-    let n' = fromIntegral n
-        angle = 2 * pi / n'
+    let angle = 2 * pi / fromIntegral n
         firstPoint = (sqrt (s ^ 2 / (2 - 2 * cos angle)), 0.0)
-    in Polygon $ map (\n -> rotate (n' * angle) firstPoint)
+    in Polygon $ map (\x -> rotate (fromIntegral x * angle) firstPoint)
                      [0 .. n-1]
 
 distBetween                  :: Vertex -> Vertex -> Float
