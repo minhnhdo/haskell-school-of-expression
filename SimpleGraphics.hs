@@ -96,9 +96,9 @@ fillEquiTri w x y size color rotated =
                               (fromIntegral . round $ x',
                                fromIntegral . round $ y' - height * 2 / 3)])))
 
-fillStartOfDavid                 :: Window -> Int -> Int -> Int -> Color ->
+fillStarOfDavid                 :: Window -> Int -> Int -> Int -> Color ->
                                         IO ()
-fillStartOfDavid w x y size color = do fillEquiTri w x y size color True
+fillStarOfDavid w x y size color = do fillEquiTri w x y size color True
                                        fillEquiTri w x y size color False
 
 snowflake           :: Window -> Int -> Int -> Int -> IO ()
@@ -111,7 +111,7 @@ snowflake w x y size = helper w x y size (nextColor Green)
           helper                 :: Window -> Int -> Int -> Int -> Color ->
                                         IO ()
           helper w x y size color =
-            do fillStartOfDavid w x y size color
+            do fillStarOfDavid w x y size color
                if size <= minSize * 3
                   then return ()
                   else let size2 = size `div` 3
