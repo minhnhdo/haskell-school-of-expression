@@ -49,8 +49,8 @@ triArea v1 v2 v3 = sqrt (s * (s - a) * (s - b) * (s - c))
           s = (a + b + c) / 2
 
 area'                              :: Shape -> Float
-area' (Rectangle s1 s2)             = s1 * s2
-area' (RtTriangle s1 s2)            = s1 * s2 / 2
+area' (Rectangle s1 s2)             = abs (s1 * s2)
+area' (RtTriangle s1 s2)            = abs (s1 * s2 / 2)
 area' (Ellipse r1 r2)               = pi * r1 * r2
 area' (Polygon [])                  = 0
 area' (Polygon (v1 : vs))           = polyArea vs
@@ -81,8 +81,8 @@ convex (Polygon (v1 : v2 : v3 : vs)) = check v1 v2 v3 vs (sineSign v1 v2 v3)
 convex _                             = False
 
 area                    :: Shape -> Float
-area (Rectangle s1 s2)   = s1 * s2
-area (RtTriangle s1 s2)  = s1 * s2 / 2
+area (Rectangle s1 s2)   = abs (s1 * s2)
+area (RtTriangle s1 s2)  = abs (s1 * s2 / 2)
 area (Ellipse r1 r2)     = pi * r1 * r2
 area (Polygon (v1 : vs)) =
     a + trapezoidArea lastVertex v1
