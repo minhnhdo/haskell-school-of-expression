@@ -22,10 +22,10 @@ foldLeaf f acc (Leaf x)       = f acc x
 foldLeaf f acc (Branch t1 t2) = foldLeaf f (foldLeaf f acc t1) t2
 
 fringe :: Tree a -> [a]
-fringe  = foldLeaf (\ acc x -> acc ++ [x]) []
+fringe  = foldLeaf (\acc x -> acc ++ [x]) []
 
 treeSize :: Tree a -> Integer
-treeSize  = foldLeaf (\ acc _ -> acc + 1) 0
+treeSize  = foldLeaf (\acc _ -> acc + 1) 0
 
 foldBranch                         :: (a -> b -> a) -> (a -> a -> a) -> a ->
                                             Tree b -> a
@@ -34,7 +34,7 @@ foldBranch fl fb acc (Branch t1 t2) = fb (foldBranch fl fb acc t1)
                                          (foldBranch fl fb acc t2)
 
 treeHeight :: Tree a -> Integer
-treeHeight  = foldBranch (\ _ _ -> 0) (\ b1 b2 -> 1 + max b1 b2) 0
+treeHeight  = foldBranch (\_ _ -> 0) (\b1 b2 -> 1 + max b1 b2) 0
 
 data Expr = C Float | Expr :+ Expr | Expr :- Expr | Expr :* Expr
           | Expr :/ Expr | V String | Let String Expr Expr
@@ -91,4 +91,4 @@ zipWithITree f (IBranch x t1 t2) (IBranch y t3 t4) =
     IBranch (f x y) (zipWithITree f t1 t3) (zipWithITree f t2 t4)
 
 zipITree :: InternalTree a -> InternalTree b -> InternalTree (a, b)
-zipITree  = zipWithITree (\ x y -> (x, y))
+zipITree  = zipWithITree (\x y -> (x, y))
