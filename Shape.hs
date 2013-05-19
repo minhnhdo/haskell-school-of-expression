@@ -35,10 +35,8 @@ regularPolygon    :: Int -> Side -> Shape
 regularPolygon n s =
     let angle = 2 * pi / fromIntegral n
         firstPoint = (sqrt (s ^ 2 / (2 - 2 * cos angle)), 0.0)
-        rotatedPoints acc 0 _ = acc
-        rotatedPoints acc n p =
-            rotatedPoints (p : acc) (n - 1) (rotate angle p)
-    in Polygon $ rotatedPoints [] n firstPoint
+    in Polygon $ map (\n -> rotate (fromIntegral n * angle) firstPoint)
+                     [0 .. n-1]
 
 distBetween                  :: Vertex -> Vertex -> Float
 distBetween (x1, y1) (x2, y2) = sqrt ((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
@@ -89,8 +87,8 @@ area (Ellipse r1 r2)     = pi * r1 * r2
 area (Polygon (v1 : vs)) =
     a + trapezoidArea lastVertex v1
     where trapezoidArea                  :: Vertex -> Vertex -> Float
-          trapezoidArea (x1, y1) (x2, y2) = (y1 + y2) * (x2 - x1) / 2
-          result = foldl (\ (a, lastVertex) vertex ->
+          trapezoidArea (x1, y1) (x2, y2) = (y1 + y2) * (x1 - x2) / 2
+          result = foldl (\(a, lastVertex) vertex ->
                               (a + trapezoidArea lastVertex vertex, vertex))
                          (0, v1)
                          vs
