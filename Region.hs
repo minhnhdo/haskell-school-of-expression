@@ -1,9 +1,9 @@
-module Region {- (Region (Shape, Translate, Scale,
+module Region (Region (Shape, Translate, Scale,
                        Complement, Union, Intersect, Empty),
                Coordinate,
                containsS, containsR,
                module Shape
-              ) -} where
+              ) where
 
 import Shape
 
