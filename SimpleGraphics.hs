@@ -121,26 +121,26 @@ snowflake w x y size = helper w x y size (nextColor Green)
                            y' = fromIntegral y
                            color2 = nextColor color
                        in do helper w x
-                                (fromIntegral . round $ y' + height * 4 / 9)
-                                size2 color2
-                             helper w
-                                (fromIntegral . round $ x' - s / 3)
-                                (fromIntegral . round $ y' + height * 2 / 9)
-                                size2 color2
-                             helper w
-                                (fromIntegral . round $ x' - s / 3)
-                                (fromIntegral . round $ y' - height * 2 / 9)
-                                size2 color2
-                             helper w x
                                 (fromIntegral . round $ y' - height * 4 / 9)
                                 size2 color2
                              helper w
-                                (fromIntegral . round $ x' + s / 3)
+                                (fromIntegral . round $ x' - s / 3)
                                 (fromIntegral . round $ y' - height * 2 / 9)
+                                size2 color2
+                             helper w
+                                (fromIntegral . round $ x' - s / 3)
+                                (fromIntegral . round $ y' + height * 2 / 9)
+                                size2 color2
+                             helper w x
+                                (fromIntegral . round $ y' + height * 4 / 9)
                                 size2 color2
                              helper w
                                 (fromIntegral . round $ x' + s / 3)
                                 (fromIntegral . round $ y' + height * 2 / 9)
+                                size2 color2
+                             helper w
+                                (fromIntegral . round $ x' + s / 3)
+                                (fromIntegral . round $ y' - height * 2 / 9)
                                 size2 color2
 
 main4 :: IO ()
