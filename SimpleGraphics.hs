@@ -99,7 +99,7 @@ fillEquiTri w x y size color rotated =
 fillStarOfDavid                 :: Window -> Int -> Int -> Int -> Color ->
                                         IO ()
 fillStarOfDavid w x y size color = do fillEquiTri w x y size color True
-                                       fillEquiTri w x y size color False
+                                      fillEquiTri w x y size color False
 
 snowflake           :: Window -> Int -> Int -> Int -> IO ()
 snowflake w x y size = helper w x y size (nextColor Green)
