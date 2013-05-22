@@ -1,6 +1,6 @@
 module SimpleGraphics where
 
-import Graphics.SOE
+import Graphics.SOE.Gtk
 
 spaceClose :: Window -> IO ()
 spaceClose w = do k <- getKey w

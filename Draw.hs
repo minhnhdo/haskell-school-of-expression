@@ -4,7 +4,7 @@ module Draw (inchToPixel, pixelToInch, intToFloat,
 
 import Shape
 import SimpleGraphics (spaceClose)
-import Graphics.SOE
+import Graphics.SOE.Gtk
 
 inchToPixel  :: Float -> Int
 inchToPixel x = round (100 * x)
