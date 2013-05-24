@@ -5,15 +5,15 @@ module Perimeter (perimeter,
 import Shape
 
 epsilon :: Float
-epsilon  = 0.0001
+epsilon = 0.0001
 
 nextEl :: Float -> Float -> Float -> Float
 nextEl e s i = s * (2 * i - 1) * (2 * i - 3) * e^2 / (4*i^2)
 
-sides   :: [Vertex] -> [Side]
+sides :: [Vertex] -> [Side]
 sides vs = zipWith distBetween vs (tail vs ++ [head vs])
 
-perimeter                   :: Shape -> Float
+perimeter :: Shape -> Float
 perimeter (Rectangle s1 s2)  = 2 * (abs s1 + abs s2)
 perimeter (RtTriangle s1 s2) = abs s1 + abs s2 + sqrt (s1^2 + s2^2)
 perimeter (Polygon vs)       = foldl (+) 0 (sides vs)

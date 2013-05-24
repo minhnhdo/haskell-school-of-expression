@@ -16,39 +16,39 @@ type Vertex = (Float, Float)
 type Vector = (Float, Float)
 type Radian = Float
 
-square  :: Side -> Shape
+square :: Side -> Shape
 square s = Rectangle s s
 
-circle  :: Radius -> Shape
+circle :: Radius -> Shape
 circle r = Ellipse r r
 
-rectangle      :: Side -> Side -> Shape
+rectangle :: Side -> Side -> Shape
 rectangle s1 s2 = Polygon [(0, 0), (s1, 0), (s1, s2), (0, s2)]
 
-rtTriangle      :: Side -> Side -> Shape
+rtTriangle :: Side -> Side -> Shape
 rtTriangle s1 s2 = Polygon [(0, 0), (s1, 0), (0, s2)]
 
-rotate         :: Radian -> Vertex -> Vertex
+rotate :: Radian -> Vertex -> Vertex
 rotate r (x, y) = ((x * cos r - y * sin r), (x * sin r + y * cos r))
 
-regularPolygon    :: Int -> Side -> Shape
+regularPolygon :: Int -> Side -> Shape
 regularPolygon n s =
     let angle = 2 * pi / fromIntegral n
         firstPoint = (sqrt (s ^ 2 / (2 - 2 * cos angle)), 0.0)
     in Polygon $ map (\x -> rotate (fromIntegral x * angle) firstPoint)
                      [0 .. n-1]
 
-distBetween                  :: Vertex -> Vertex -> Float
+distBetween :: Vertex -> Vertex -> Float
 distBetween (x1, y1) (x2, y2) = sqrt ((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
 
-triArea         :: Vertex -> Vertex -> Vertex -> Float
+triArea :: Vertex -> Vertex -> Vertex -> Float
 triArea v1 v2 v3 = sqrt (s * (s - a) * (s - b) * (s - c))
     where a = distBetween v1 v2
           b = distBetween v2 v3
           c = distBetween v3 v1
           s = (a + b + c) / 2
 
-area'                              :: Shape -> Float
+area' :: Shape -> Float
 area' (Rectangle s1 s2)             = abs (s1 * s2)
 area' (RtTriangle s1 s2)            = abs (s1 * s2 / 2)
 area' (Ellipse r1 r2)               = pi * r1 * r2
@@ -80,7 +80,7 @@ convex (Polygon (v1 : v2 : v3 : vs)) = check v1 v2 v3 vs (sineSign v1 v2 v3)
             ordering == sineSign v2' v3' v1
 convex _                             = False
 
-area                    :: Shape -> Float
+area :: Shape -> Float
 area (Rectangle s1 s2)   = abs (s1 * s2)
 area (RtTriangle s1 s2)  = abs (s1 * s2 / 2)
 area (Ellipse r1 r2)     = pi * r1 * r2
