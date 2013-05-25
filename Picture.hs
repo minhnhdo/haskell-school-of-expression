@@ -148,19 +148,12 @@ loop2 w = handler
                sequence_ . map (uncurry $ drawRegionInWindow w) $ reverse regs
           handler regs =
             do drawColoredRegions w regs
-               e <- getWindowEvent w
-               case e of
-                    (Button { pt = pt@(x, y), isDown = id })
-                         | id        ->
-                             let aux (_, r) =
-                                    r `containsR` (pixelToInch (x - xWin2),
-                                                   pixelToInch (yWin2 - y))
-                             in case (break aux regs) of
-                                  (_, [])        -> closeWindow w
-                                  (top, hit:bot) -> handlerMove pt
-                                                       (hit:(top++bot))
-                         | otherwise -> handler regs
-                    _ -> handler regs
+               pt@(x, y) <- getLBP w
+               let aux (_, r) = r `containsR` (pixelToInch (x - xWin2),
+                                               pixelToInch (yWin2 - y))
+               case (break aux regs) of
+                    (_, [])        -> closeWindow w
+                    (top, hit:bot) -> handlerMove pt (hit:(top++bot))
           handlerMove pt@(x, y) regs@((c,r):crs) =
             do drawColoredRegions w regs
                e <- getWindowEvent w
@@ -170,8 +163,8 @@ loop2 w = handler
                                      pixelToInch $ y - ny)
                         in handlerMove npt ((c, Translate delta r):crs)
                     (Button { isDown = id })
-                        | not id    -> handler regs
-                        | otherwise -> handlerMove pt regs
+                        | id        -> handlerMove pt regs
+                        | otherwise -> handler regs
 
 draw3 :: String -> Picture -> IO ()
 draw3 s p = runGraphics $
