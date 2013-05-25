@@ -10,7 +10,7 @@ inchToPixel :: Float -> Int
 inchToPixel = round . (100*)
 
 pixelToInch :: Int -> Float
-pixelToInch = intToFloat . (/ 100)
+pixelToInch = (/ 100) . intToFloat
 
 intToFloat  :: Int -> Float
 intToFloat = fromInteger . toInteger
